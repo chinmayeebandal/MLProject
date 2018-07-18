@@ -15,12 +15,10 @@ quandl.ApiConfig.api_key = "Enter_your_API_key"
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing, cross_validation
 
 import numpy as np
-
 #import tensorflow as tf
 
 
@@ -35,23 +33,12 @@ df.to_csv('~/Documents/SummerProjects/MLProject/'+ticker+'.csv')
 def load_stock_data():
     return pd.read_csv('~/Documents/SummerProjects/MLProject/AAPL.csv')
     
-
-#stock = load_stock_data()
-
-#print(aapl.tail())
-#x = aapl.iloc[9094:, 3:4] #2017 onwards
-#aapl.hist()
-#y = aapl.iloc[9094:, 3:4]
-#y.plot()
-#plt.show()
-
 #filter out Adj close
 df = df[['Adj. Close']]
 print(df.tail()) #print 5 recent closing costs
 
 forecast_out = int(30)
 df['Prediction'] = df[['Adj. Close']].shift(-forecast_out)
-
 
 #scale the data
 X = np.array(df.drop(['Prediction'], 1))
@@ -80,6 +67,7 @@ print("testing: ", testing)
 prediction = linR.predict(close_forecast)
 print(prediction)
 
+#plot the graph
 plt.ylabel("Cost")
 plt.xlabel("No of days from today")
 plt.plot(prediction)
