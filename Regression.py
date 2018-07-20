@@ -3,22 +3,21 @@
 """
 Created on Thu Jul 19 22:44:53 2018
 
+Project which calculates the linear regression, the best fit slope and the coefficient of difference of data of companies
+and helps predict the stock prices at a particular day in the future based on the best-fit line
+
 @author: cbandal
 """
 import quandl
-quandl.ApiConfig.api_key = "Bx3yLKptEvfyr4cx-VZF"
+quandl.ApiConfig.api_key = "Enter_your_APIKey"
 from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
 #from sklearn.model_selection import train_test_split
 
 
-
-
 ticker = input("Enter ticker symbols: ").split(' ')
-print(ticker)
-
-
+#print(ticker)
 
 for tick in ticker:
     symbol1 = 'WIKI/'+tick+'.0' #date column
