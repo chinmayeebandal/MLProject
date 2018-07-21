@@ -3,27 +3,30 @@
 """
 Created on Thu Jul 19 22:44:53 2018
 
-Project which calculates the linear regression, the best fit slope and the coefficient of difference of data of companies
-and helps predict the stock prices at a particular day in the future based on the best-fit line
-
 @author: cbandal
 """
 import quandl
-quandl.ApiConfig.api_key = "Enter_your_APIKey"
+quandl.ApiConfig.api_key = "API"
 from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
+#from sklearn.preprocessing import scale
 #from sklearn.model_selection import train_test_split
 
 
+
+
 ticker = input("Enter ticker symbols: ").split(' ')
-#print(ticker)
+days = int(input("Enter number of days of forecast: "))
+print(ticker)
+
+
 
 for tick in ticker:
     symbol1 = 'WIKI/'+tick+'.0' #date column
     symbol2 = 'WIKI/'+tick+'.4' #closing price column
-    start = "2001-12-31"
-    end = "2006-12-31"
+    start = "2010-12-31"
+    end = "2011-12-31"
 
     data = quandl.get([symbol1, symbol2], start_date=start, end_date=end, returns="numpy")
 
@@ -31,10 +34,13 @@ for tick in ticker:
     #y_pts = np.array([5,4,6,5,6], dtype=np.float64)
 
     dates = np.array([x[0] for x in data], dtype=object)
-    #print(dates)
+    #print(dates.size)
 
     x_pts = np.array([i for i in range(1, dates.size+1)], dtype=np.float64)
     y_pts = np.array([x[1] for x in data], dtype=np.float64)
+    
+    #x_pts = scale( x_pts, axis=0, with_mean=True, with_std=True, copy=True )
+    #y_pts = scale( y_pts, axis=0, with_mean=True, with_std=True, copy=True )
 
     #print(x_pts)
     #print(y_pts)
@@ -64,8 +70,8 @@ for tick in ticker:
     print(tick," r square: ",r_squared)
 
 
-    predict_x = 1100
-    predict_y = (m*predict_x) + b
+    predict_x = [i for i in range(dates.size+1, dates.size + days + 1)]
+    predict_y = [(m*x) + b for x in predict_x]
     #predict_y = [(m*x) + b for x in x_test]
     print(tick, "predicted cost: ",predict_y)
 
