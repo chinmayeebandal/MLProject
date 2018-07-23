@@ -7,7 +7,7 @@ Created on Mon Jul 23 00:47:21 2018
 """
 
 import quandl, math
-quandl.ApiConfig.api_key = "API"
+quandl.ApiConfig.api_key = "Enter_your_APIKey"
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -17,10 +17,6 @@ import datetime as datetime
 
 
 def printGraph(ticker, start_date, end_date):
-
-    #symbol1 = 'WIKI/'+tick+'.0' #date column
-    #symbol2 = 'WIKI/'+tick+'.1' #opening price column
-    # symbol3 = 'WIKI/'+tick+'.4' #closing price column
     symbol = "WIKI/"+ticker    
     data = quandl.get(symbol, start_date=start_date, end_date=end_date)
     data = data.filter(items=['Date', 'Open', 'High', 'Low', 'Close', 'Volume'])
@@ -32,7 +28,6 @@ def printGraph(ticker, start_date, end_date):
     plt.ylabel("CLosing price")
     plt.show()
         
-printGraph("AAPL", "2018-01-01", "2018-05-31")
 
 #add percent change later    
 def stockPrediction(ticker, start_date, end_date):
@@ -88,6 +83,13 @@ def stockPrediction(ticker, start_date, end_date):
         next_day += 86400
         print(datetime.datetime.fromtimestamp(next_day), i) #print the future prices after last date
         data.loc[next_date] = [np.nan for _ in range(len(data.columns)-1)]+[i]
+        
+    data['Adj. Close'].plot()
+    data['Forecast'].plot()
+    plt.legend(loc=4)
+    plt.xlabel('Time period')
+    plt.ylabel('Price')
+    plt.show()
     
 def getClosingPrice(ticker, start_date, end_date):
     symbol = "WIKI/"+ticker    
@@ -97,8 +99,7 @@ def getClosingPrice(ticker, start_date, end_date):
     close = data.iloc[-1][3]
     return close
     
-#stockPrediction("AAPL", "2018-01-01", "2018-05-31")
-#blah = getClosingPrice("AAPL", "2018-01-01", "2018-05-31")
+
 
          
         
