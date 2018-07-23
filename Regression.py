@@ -13,14 +13,9 @@ import matplotlib.pyplot as plt
 #from sklearn.preprocessing import scale
 #from sklearn.model_selection import train_test_split
 
-
-
-
 ticker = input("Enter ticker symbols: ").split(' ')
 days = int(input("Enter number of days of forecast: "))
 print(ticker)
-
-
 
 for tick in ticker:
     symbol1 = 'WIKI/'+tick+'.0' #date column
