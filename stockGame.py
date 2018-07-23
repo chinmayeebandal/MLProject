@@ -6,20 +6,18 @@ Created on Mon Jul 23 00:01:24 2018
 @author: cbandal
 """
 
-#from StockRegre import stock
 import stockGraphs as sg
-import pandas as pd
-import numpy as np
-import math
 
 class simulator:
     
-    beginAmt = float(10000);
+    balance = float(10000); #each player begins with $10,000 in their account
     stocks = {} #dictionary
+    #print(stocks)
     
-    def __init__(self, name):
-        self.name = name
-        self.beginAmt = 100000 #each player begins with $100,000 in their account
+    #def __init__(self, name):
+    #    self.name = name
+    #    self.balance = 10000 
+        
     
     name = input("Enter your name: ")
     tickers = input("Which stocks are you interested in? ").split(' ')
@@ -29,40 +27,86 @@ class simulator:
         print(tick)
         sg.printGraph(tick, date_range[0], date_range[1]) #gives general info
         
-    
-    
-   # buy_or_sell = input("Do you wanna buy or sell stocks?(Buy or Sell and Stock): ").split(' ')
-    #choice = buy_or_sell[0]
-    #stockTicker = buy_or_sell[1]
-    #num = int(input("How many do you want to "+choice+" ? "))
-    
-    if(beginAmt == 100000):
-        buy = input("Purchase stocks?(yes/no, Enter company code, # of stocks): ").split(' ')
-        if(buy == "yes"):
-            for tick in buy:
-                sg.printGraph(tick, date_range[0], date_range[1]) #gives general info
-                close = sg.getClosingPrice(tick, date_range[0], date_range[1])
-                total = close * int(buy[2])
-                beginAmt -= total
-                
-                if stocks.get(tick)==None:    
-                    stocks[tick] = int(buy[2])
-                else:
-                    val = stocks.get(tick)
-                    val += int(buy[2])
-                
-                #sg.stockPrediction(tck, date_range[0], date_range[1]) 
-        else:
-            predict = input("Do you wanna see any predictions for stock prices? **DISCLAIMER: DO NOT make any purchases based on these predictions")
-            if(predict=="yes"):
-                tck = input("Please enter the ticker symbol: ")
-                sg.stockPrediction(tck, date_range[0], date_range[1]) #predicts future stock prices
+    #trade stocks
+    trade = input("Trade stock? y/n: ")
+    while(trade == 'y'): 
+        order = input("Stock order? Transaction, Stock symbol, Quantity: ").split(' ')
+        if(order[0] == "buy"):
+            ticker = order[1]
+            sg.printGraph(ticker, date_range[0], date_range[1]) #gives general info
+            close = sg.getClosingPrice(ticker, date_range[0], date_range[1])
+            cost = close * int(order[2])
+            if(balance - cost <= 1000):
+                print("Insufficient funds")
+                trade = input("Trade stock? y/n: ")
             else:
-                print("Stocks are cool")
-    elif beginAmt<100000 and beginAmt>0.0:
+                balance -= cost
+                print("Account value: ", balance)
+        
+                if(stocks.get(ticker) == None):
+                    stocks[ticker] = int(order[2])
+                else:
+                    stocks[ticker] += int(order[2])
+                print(stocks.items())
+                trade = input("Trade stock? y/n: ")
+            
+        elif(order[0] == "sell"):
+            ticker = order[1]
+            if(stocks.get(ticker) == None):
+                print(ticker," not found in your trade")
+                trade = input("Trade stock? y/n: ")
+            else:
+                #sg.printGraph(ticker, date_range[0], date_range[1]) #gives general info
+                close = sg.getClosingPrice(ticker, date_range[0], date_range[1])
+                cost = close * int(order[2])
+                balance += cost
+                print("Account value: ", balance)
+                
+                diff = stocks[ticker] - int(order[2])
+                if(diff > 1):
+                    stocks[ticker] = diff
+                else:
+                    stocks.pop(ticker)
+                print(stocks.items())
+                trade = input("Trade stock? y/n: ")
+                
+    if(trade == "n"):
+        prediction = input("Predictions of stocks? y/n: ") #stock predictions
+        if(prediction == "y"):
+            pred = input("Enter stock name, start date and end date: ").split(' ')
+            ticker = pred[0]
+            start = pred[1]
+            end = pred[2]
+            sg.stockPrediction(ticker, start, end)
+            
+            summary = input("Summary? y/n: ") #Summary 
+            if(summary == "y"):
+                print("Account balance: ", balance)
+                for ticks in stocks:
+                    print(ticks, " Quantity: ",stocks[ticks], " Close: ", sg.getClosingPrice(ticker, date_range[0], date_range[1]))
+                annual_return = ((balance/10000)**(365))-1
+                print("Annual Return: ", annual_return)
+                print("Thank you for playing, ",name,"!")
+            else:
+                print("Thank you for playing, ",name,"!")
+                
+        else:
+            summary = input("Summary? y/n: ")
+            if(summary == "y"):
+                print("Account balance: ", balance)
+                for ticks in stocks:
+                    print(ticks, " Quantity: ",stocks[ticks], " Close: ", sg.getClosingPrice(ticker, date_range[0], date_range[1]))
+                annual_return = ((balance/10000)**(365))-1
+                print("Annual Return: ", annual_return)
+                print("Thank you for playing, ",name, "!")
+            else:
+                print("Thank you for playing, ",name, "!")
+                
+    
+                
         
         
-
+    
            
         
     
