@@ -1,4 +1,4 @@
-# MLProject
+# StockPrediction
 
 Predicting stock prices has always been one of the most favourite and challenging topics for data scientists and students
 alike. It is (almost!) impossible for us to accurately predict the changes in stock prices, but we can use current financial models or basic statistics to get atleast the most basic information and price trends by observing and analyzing the data from over the years.
