@@ -7,7 +7,7 @@ Created on Mon Jul 23 00:47:21 2018
 """
 
 import quandl, math
-quandl.ApiConfig.api_key = "Bx3yLKptEvfyr4cx-VZF"
+quandl.ApiConfig.api_key = "Enter_your_APIKey"
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import LinearRegression
