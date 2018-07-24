@@ -8,4 +8,4 @@ It is a very nice and basic way for beginners in Finance to learn about Stocks, 
 
 I also have another file named 'Regression.py' which is a nice way to start off with Python and Statistics. It is the basic implementation of machine learning functions of Linear Regression, Coefficient of Difference and Prediction. 
 
-**DISCLAIMER** Do not make any financial judgements or transactions based on the predictions. It can be highly inaccurate. Pleae use this for educational purposes only.
+**DISCLAIMER** Do not make any financial judgements or transactions based on the predictions. It can be highly inaccurate. Please use this for educational purposes only.
