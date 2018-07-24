@@ -7,7 +7,7 @@ Created on Mon Jul 23 00:47:21 2018
 """
 
 import quandl, math
-quandl.ApiConfig.api_key = "Enter_your_APIKey"
+quandl.ApiConfig.api_key = "Bx3yLKptEvfyr4cx-VZF"
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -17,11 +17,13 @@ import datetime as datetime
 
 
 def printGraph(ticker, start_date, end_date):
+
     symbol = "WIKI/"+ticker    
     data = quandl.get(symbol, start_date=start_date, end_date=end_date)
     data = data.filter(items=['Date', 'Open', 'High', 'Low', 'Close', 'Volume'])
+    forecast_out = int(math.ceil(0.01 * len(data)))
     
-    print(data.tail(10))
+    print(data[(-forecast_out-11) : -forecast_out]) #hide future dates
     plt.title(ticker)
     plt.plot(data['Close'])
     plt.xlabel("Period")
