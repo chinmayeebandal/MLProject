@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul 19 22:44:53 2018
-
+Code for linear regression analysis
 @author: cbandal
 """
 import quandl
