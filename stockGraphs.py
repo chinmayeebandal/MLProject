@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jul 23 00:47:21 2018
-
+Contains functions to support the game in file stockGame.py
 @author: cbandal
 """
 
