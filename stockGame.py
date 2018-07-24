@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jul 23 00:01:24 2018
-
+Game that simulates the stock market and transactions
 @author: cbandal
 """
 
